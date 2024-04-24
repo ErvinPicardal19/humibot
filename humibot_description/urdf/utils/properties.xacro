@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+<!--    
+   <xacro:property name="base_width" value="0.31"/>
+   <xacro:property name="base_length" value="0.42"/>
+   <xacro:property name="base_height" value="0.18"/>
+
+   <xacro:property name="wheel_radius" value="0.10"/>
+   <xacro:property name="wheel_width" value="0.04"/> -->
+
+   <xacro:property name="base_width" value="0.280"/>
+   <xacro:property name="base_length" value="0.288"/>
+   <xacro:property name="base_height" value="0.005"/>
+   <xacro:property name="base_mass" value="1.012"/>
+   <xacro:property name="base_link_xoff" value="0.095"/>
+ 
+   <xacro:property name="wheel_diameter" value="0.065"/>
+   <xacro:property name="wheel_radius" value="${wheel_diameter/2}"/>
+   <xacro:property name="wheel_width" value="0.026"/>
+   <xacro:property name="wheel_mass" value="0.057"/>
+   
+   <xacro:property name="wheel_ygap" value="0.002"/>
+   <xacro:property name="wheel_zoff" value="0.05"/>
+   <xacro:property name="wheel_xoff" value="0.12"/>
+
+   <xacro:property name="caster_diameter" value="0.025"/>
+   <xacro:property name="caster_radius" value="${caster_diameter/2}"/>
+   <xacro:property name="caster_xoff" value="0.14"/>
+   <xacro:property name="caster_mass" value="0.017"/>
+
+</robot>
