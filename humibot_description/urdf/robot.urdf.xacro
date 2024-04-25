@@ -9,5 +9,7 @@
 
    <xacro:include filename="gazebo_control.xacro"/>
 
+   <xacro:include filename="sensors/lidar.xacro"/>
+
 
 </robot>
