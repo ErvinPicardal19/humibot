@@ -9,18 +9,17 @@
 
    <link name="lidar_link">
       <visual>
-         <origin xyz="0.0565 0.031 -0.05" rpy="${pi/2} 0.0 -${pi/2}"/>
+         <origin xyz="-0.053 -0.031 -0.0625" rpy="${pi/2} 0.0 ${pi/2}"/>
          <geometry>
                <mesh filename="package://humibot_description/meshes/ld06.stl" scale="0.001 0.001 0.001"/>
          </geometry>
       </visual>
-      
-      <visual name="lidar_stand_visual">
-         <origin xyz="0.0 0.0 -0.0425" rpy="0.0 0.0 0.0"/>
+      <collision>
+         <origin xyz="0.005 0.0 -${0.05/2}" rpy="0.0 0.0 0.0"/>
          <geometry>
-            <box size="0.070 0.066 0.005"/>
+            <box size="0.07 0.0672 0.05"/>
          </geometry>
-      </visual>
+      </collision>
    </link>
 
    <gazebo reference="lidar_link">

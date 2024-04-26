@@ -7,85 +7,65 @@
 
    <!-- CHASSIS -->
    <joint name="chassis_joint" type="fixed">
-      <origin xyz="-${base_link_xoff} 0 0" rpy="0 0 0"/>
+      <origin xyz="-${base_link_xoff + 0.0365} 0 0" rpy="0 0 0"/>
       <parent link="base_link"/>
       <child link="chassis_link"/>
    </joint>
 
    <link name="chassis_link">
       <visual>
-         <origin xyz="${base_length/2} 0.0 ${base_height/2}" rpy="0.0 0.0 ${-(pi/2)}"/>
+         <origin xyz="${(base_length/2) + 0.0365} 0.0 ${base_height/2}" rpy="0.0 0.0 ${-(pi/2)}"/>
          <geometry>
-            <mesh filename="package://humibot_description/meshes/base.stl" scale="0.001 0.001 0.001"/>
+            <mesh filename="package://humibot_description/meshes/chassis.stl" scale="0.001 0.001 0.001"/>
          </geometry>
          <material name="white"/>
       </visual>
       <collision>
-         <origin xyz="${base_length/2} 0.0 ${base_height/2}" rpy="0.0 0.0 0.0"/>
+         <origin xyz="${(base_length+0.0365)/2} 0.0 ${(base_height+0.165)/2}" rpy="0.0 0.0 0.0"/>
          <geometry>
-            <box size="${base_length} ${base_width} ${base_height}"/>
+            <box size="${base_length + 0.04} ${base_width} ${base_height+0.165}"/>
          </geometry>
       </collision>
-
-      <visual name="base_roof_visual">
-         <origin xyz="${base_link_xoff + 0.048} 0 ${base_height+0.02}" rpy="0 0 -${pi/2}"/>
-         <geometry>
-            <mesh filename="package://humibot_description/meshes/roof.stl" scale="0.001 0.001 0.001"/>
-         </geometry>
-      </visual>
-      <collision name="base_roof_collision">
-         <origin xyz="${base_link_xoff + 0.048} 0 ${base_height+0.02}" rpy="0 0 -${pi/2}"/>
-         <geometry>
-            <mesh filename="package://humibot_description/meshes/roof.stl" scale="0.001 0.001 0.001"/>
-         </geometry>
-      </collision>
-
-      <!-- <visual name="filter_visual">
-         <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
-         <geometry>
-            <box size="0.025 0.139 0.150"/>
-         </geometry>
-      </visual> -->
 
       <visual name="left_dc_motor_visual">
-         <origin xyz="${base_link_xoff} ${(base_width/2) - (0.063/2)} -0.0125" rpy="-${pi/2} 0 0"/>
+         <origin xyz="${base_link_xoff + 0.0365} ${(base_width/2) - (0.063/2)} -${0.0125 + 0.005}" rpy="-${pi/2} 0 0"/>
          <geometry>
             <cylinder radius="0.0125" length="0.063"/>
          </geometry>
          <material name="blue"/>
       </visual>
       <collision name="left_dc_motor_collision">
-         <origin xyz="${base_link_xoff} ${(base_width/2) - (0.063/2)} -0.0125" rpy="-${pi/2} 0 0"/>
+         <origin xyz="${base_link_xoff + 0.0365} ${(base_width/2) - (0.063/2)} -${0.0125 + 0.005}" rpy="-${pi/2} 0 0"/>
          <geometry>
             <cylinder radius="0.0125" length="0.063"/>
          </geometry>
       </collision>
       
       <visual name="right_dc_motor_visual">
-         <origin xyz="${base_link_xoff} -${(base_width/2) - (0.063/2)} -0.0125" rpy="-${pi/2} 0 0"/>
+         <origin xyz="${base_link_xoff + 0.0365} -${(base_width/2) - (0.063/2)} -${0.0125 + 0.005}" rpy="-${pi/2} 0 0"/>
          <geometry>
             <cylinder radius="0.0125" length="0.063"/>
          </geometry>
          <material name="blue"/>
       </visual>
       <collision name="right_dc_motor_collision">
-         <origin xyz="${base_link_xoff} -${(base_width/2) - (0.063/2)} -0.0125" rpy="-${pi/2} 0 0"/>
+         <origin xyz="${base_link_xoff + 0.0365} -${(base_width/2) - (0.063/2)} -${0.0125 + 0.005}" rpy="-${pi/2} 0 0"/>
          <geometry>
             <cylinder radius="0.0125" length="0.063"/>
          </geometry>
       </collision>
       
-      <xacro:inertial_box mass="1.012" x="${base_length}" y="${base_width}" z="${base_height}">
-         <origin xyz="${base_length/2} 0.0 ${base_height/2}" rpy="0.0 0.0 ${-(pi/2)}"/>
+      <xacro:inertial_box mass="1.012" x="${base_length + 0.04}" y="${base_width}" z="${base_height+0.165}">
+         <origin xyz="${(base_length+0.0365)/2} 0.0 ${(base_height+0.165)/2}" rpy="0.0 0.0 0.0"/>
       </xacro:inertial_box>
    </link>
 
    <!-- Dehumidifier -->
-   <xacro:include filename="sensors/dehumidifier.xacro"/>
+   <!-- <xacro:include filename="sensors/dehumidifier.xacro"/> -->
 
    <!-- LEFT WHEEL -->
    <joint name="left_wheel_joint" type="continuous">
-      <origin xyz="0 ${(base_width/2) + (wheel_width/2) + wheel_ygap} -0.0125" rpy="${-(pi/2)} 0 0"/>
+      <origin xyz="0 ${(base_width/2) + (wheel_width/2) + wheel_ygap} -${0.0125 + 0.005}" rpy="${-(pi/2)} 0 0"/>
       <parent link="base_link"/>
       <child link="left_wheel_link"/>
       <axis xyz="0 0 1"/>
@@ -112,7 +92,7 @@
 
    <!-- RIGHT WHEEL -->
    <joint name="right_wheel_joint" type="continuous">
-      <origin xyz="0 -${(base_width/2) + (wheel_width/2) + wheel_ygap} -0.0125" rpy="${pi/2} 0 0"/>
+      <origin xyz="0 -${(base_width/2) + (wheel_width/2) + wheel_ygap} -${0.0125 + 0.005}" rpy="${pi/2} 0 0"/>
       <parent link="base_link"/>
       <child link="right_wheel_link"/>
       <axis xyz="0 0 -1"/>
@@ -141,7 +121,7 @@
    <joint name="caster_joint" type="fixed">
       <parent link="chassis_link"/>
       <child link="front_caster"/>
-      <origin xyz="${base_length - 0.034} 0 ${-0.0125+caster_radius-wheel_radius}" rpy="0 0 0"/>
+      <origin xyz="${base_length - 0.034} 0 ${-0.0125 - 0.005 + caster_radius - wheel_radius}" rpy="0 0 0"/>
    </joint>
 
    <link name="front_caster">
@@ -157,6 +137,13 @@
             <sphere radius="${caster_radius}"/>
          </geometry>
       </collision>
+
+      <visual name="caster_wheel_holder_visual">
+         <origin xyz="0.0 0.0 ${0.04/2}" rpy="0.0 0.0 0.0"/>
+         <geometry>
+            <box size="0.015 0.015 0.04"/>
+         </geometry>
+      </visual>
 
       <xacro:inertial_sphere mass="${caster_mass}" radius="${caster_radius}">
          <origin xyz="0 0 0" rpy="0 0 0"/>

@@ -8,6 +8,7 @@ Panels:
         - /TF1
         - /RobotModel1
         - /RobotModel1/Mass Properties1
+        - /RobotModel1/Links1
         - /LaserScan1
       Splitter Ratio: 0.5
     Tree Height: 715
@@ -28,7 +29,7 @@ Panels:
     Experimental: false
     Name: Time
     SyncMode: 0
-    SyncSource: LaserScan
+    SyncSource: ""
 Visualization Manager:
   Class: ""
   Displays:
@@ -55,18 +56,39 @@ Visualization Manager:
       Frame Timeout: 15
       Frames:
         All Enabled: true
+        base_link:
+          Value: true
+        chassis_link:
+          Value: true
+        front_caster:
+          Value: true
+        left_wheel_link:
+          Value: true
+        lidar_link:
+          Value: true
+        right_wheel_link:
+          Value: true
       Marker Scale: 0.30000001192092896
       Name: TF
       Show Arrows: false
       Show Axes: true
       Show Names: true
       Tree:
-        {}
+        base_link:
+          chassis_link:
+            front_caster:
+              {}
+          left_wheel_link:
+            {}
+          lidar_link:
+            {}
+          right_wheel_link:
+            {}
       Update Interval: 0
       Value: true
-    - Alpha: 0.800000011920929
+    - Alpha: 1
       Class: rviz_default_plugins/RobotModel
-      Collision Enabled: false
+      Collision Enabled: true
       Description File: ""
       Description Source: Topic
       Description Topic:
@@ -77,11 +99,40 @@ Visualization Manager:
         Value: /robot_description
       Enabled: true
       Links:
-        All Links Enabled: true
+        All Links Enabled: false
         Expand Joint Details: false
         Expand Link Details: false
         Expand Tree: false
         Link Tree Style: Links in Alphabetic Order
+        base_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        chassis_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: false
+        front_caster:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: false
+        left_wheel_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: false
+        lidar_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        right_wheel_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: false
       Mass Properties:
         Inertia: false
         Mass: false
@@ -127,7 +178,7 @@ Visualization Manager:
   Enabled: true
   Global Options:
     Background Color: 48; 48; 48
-    Fixed Frame: lidar_link
+    Fixed Frame: base_link
     Frame Rate: 30
   Name: root
   Tools:
@@ -170,25 +221,25 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz_default_plugins/Orbit
-      Distance: 6.974940776824951
+      Distance: 0.5265446305274963
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
         Swap Stereo Eyes: false
         Value: false
       Focal Point:
-        X: 0.16646014153957367
-        Y: -0.0596320740878582
-        Z: 0.014980113133788109
+        X: 0.04079815000295639
+        Y: 0.05073092505335808
+        Z: 0.1529897153377533
       Focal Shape Fixed Size: true
       Focal Shape Size: 0.05000000074505806
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 1.0297969579696655
+      Pitch: 0.029797788709402084
       Target Frame: <Fixed Frame>
       Value: Orbit (rviz_default_plugins)
-      Yaw: 4.349374771118164
+      Yaw: 4.574367046356201
     Saved: ~
 Window Geometry:
   Displays:
