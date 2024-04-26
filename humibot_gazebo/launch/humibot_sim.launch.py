@@ -1,10 +1,11 @@
 from launch import LaunchDescription
 from launch_ros.actions import Node
 from launch.substitutions import LaunchConfiguration
-from launch.actions import DeclareLaunchArgument, IncludeLaunchDescription
+from launch.actions import DeclareLaunchArgument, IncludeLaunchDescription, RegisterEventHandler
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 from ament_index_python import get_package_share_directory
 import os
+from launch.event_handlers import OnProcessExit
 
 def generate_launch_description():
    
@@ -39,10 +40,34 @@ def generate_launch_description():
       ]
    )
    
+   # start controllers
+   start_joint_broadcaster = Node(
+      package="controller_manager",
+      executable="spawner",
+      output="screen",
+      arguments=["joint_broadcaster", "--controller-manager", "/controller_manager"]
+   )
+   start_diff_controller = Node(
+      package="controller_manager",
+      executable="spawner",
+      output="screen",
+      arguments=["diff_controller"]
+   )
+
+   
+   
    return LaunchDescription([
       declare_world_path,
       
+      RegisterEventHandler(
+         event_handler=OnProcessExit(
+            target_action=start_joint_broadcaster,
+            on_exit=[start_diff_controller]
+         )
+      ),
+      
       start_robot_state_publisher,
       start_gazebo,
-      spawn_robot
+      spawn_robot,
+      start_joint_broadcaster
    ])
