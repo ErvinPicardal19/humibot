@@ -11,6 +11,7 @@ from launch.conditions import IfCondition, UnlessCondition
 def generate_launch_description():
    
    humibot_description_pkg = get_package_share_directory("humibot_description")
+   humibot_teleop_pkg = get_package_share_directory("humibot_teleop")
    humibot_gazebo_pkg = get_package_share_directory("humibot_gazebo")
    gazebo_ros_pkg = get_package_share_directory("gazebo_ros")
    
@@ -45,6 +46,11 @@ def generate_launch_description():
    start_robot_state_publisher = IncludeLaunchDescription(
       PythonLaunchDescriptionSource([os.path.join(humibot_description_pkg, "launch/rsp.launch.py")]),
       launch_arguments={"use_sim_time": "True", "use_ros2_control": use_ros2_control}.items()
+   )
+   
+   start_joystick = IncludeLaunchDescription(
+      PythonLaunchDescriptionSource([os.path.join(humibot_teleop_pkg, "launch/joystick.launch.py")]),
+      launch_arguments={"use_sim_time": "True"}.items()
    )
    
    gazebo_params_file = os.path.join(humibot_gazebo_pkg, "config/gazebo_params.yaml")
@@ -110,6 +116,7 @@ def generate_launch_description():
       ),
       
       start_robot_state_publisher,
+      start_joystick,
       start_gazebo,
       spawn_robot,
       start_joint_broadcaster,
