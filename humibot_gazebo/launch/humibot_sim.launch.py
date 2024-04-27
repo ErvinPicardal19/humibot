@@ -32,7 +32,7 @@ def generate_launch_description():
    use_rviz = LaunchConfiguration("use_rviz")
    declare_use_rviz = DeclareLaunchArgument(
       name="use_rviz",
-      default_value="True",
+      default_value="False",
       description="Start rviz2 if True"
    )
    
@@ -46,6 +46,16 @@ def generate_launch_description():
    start_robot_state_publisher = IncludeLaunchDescription(
       PythonLaunchDescriptionSource([os.path.join(humibot_description_pkg, "launch/rsp.launch.py")]),
       launch_arguments={"use_sim_time": "True", "use_ros2_control": use_ros2_control}.items()
+   )
+   
+   twist_mux_params= os.path.join(humibot_teleop_pkg, "config/twist_mux_params.yaml")
+   start_twist_mux = Node(
+      package="twist_mux",
+      executable="twist_mux",
+      parameters=[twist_mux_params, {"use_sim_time": True}],
+      remappings=[
+         ("/cmd_vel_out", "/diff_controller/cmd_vel_unstamped")
+      ]
    )
    
    start_joystick = IncludeLaunchDescription(
@@ -116,6 +126,7 @@ def generate_launch_description():
       ),
       
       start_robot_state_publisher,
+      start_twist_mux,
       start_joystick,
       start_gazebo,
       spawn_robot,

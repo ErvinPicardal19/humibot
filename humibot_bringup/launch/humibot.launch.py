@@ -12,14 +12,7 @@ def generate_launch_description():
    
    humibot_description_pkg = get_package_share_directory("humibot_description")
    humibot_bringup_pkg = get_package_share_directory("humibot_bringup")
-
-   
-   rviz_config_file = LaunchConfiguration("rviz_config")
-   declare_rviz_config_file = DeclareLaunchArgument(
-      name="rviz_config",
-      default_value=os.path.join(humibot_description_pkg, "rviz/real.rviz"),
-      description="Full file path for rviz2 config file"
-   )
+   humibot_teleop_pkg = get_package_share_directory("humibot_teleop")
    
    use_ros2_control=LaunchConfiguration("use_ros2_control")
    declare_ros2_control = DeclareLaunchArgument(
@@ -31,6 +24,16 @@ def generate_launch_description():
    start_robot_state_publisher = IncludeLaunchDescription(
       PythonLaunchDescriptionSource([os.path.join(humibot_description_pkg, "launch/rsp.launch.py")]),
       launch_arguments={"use_sim_time": "False", "use_ros2_control": use_ros2_control}.items()
+   )
+   
+   twist_mux_params= os.path.join(humibot_teleop_pkg, "config/twist_mux_params.yaml")
+   start_twist_mux = Node(
+      package="twist_mux",
+      executable="twist_mux",
+      parameters=[twist_mux_params, {"use_sim_time": "False"}],
+      remappings=[
+         ("/cmd_vel_out", "/diff_controller/cmd_vel_unstamped")
+      ]
    )
    
    # start controllers
@@ -66,7 +69,6 @@ def generate_launch_description():
    )
    
    return LaunchDescription([
-      declare_rviz_config_file,
       declare_ros2_control,
       
       RegisterEventHandler(
@@ -78,6 +80,7 @@ def generate_launch_description():
       
       start_controller_manager,
       start_robot_state_publisher,
+      start_twist_mux,
       start_lidar,
       start_joint_broadcaster
    ])
