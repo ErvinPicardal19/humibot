@@ -1,7 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro">
 
+   <!-- BASE FOOTPRINT -->
+   <link name="base_footprint">
+   </link>
+
    <!-- BASE LINK -->
+   <joint name="base_joint" type="fixed">
+      <!-- -${0.0125 + 0.005} -->
+      <origin xyz="0 0 ${wheel_zoff + wheel_radius}" rpy="0 0 0"/>
+      <parent link="base_link"/>
+      <child link="base_footprint"/>
+   </joint>
+
    <link name="base_link">
    </link>
 
@@ -55,7 +66,7 @@
          </geometry>
       </collision>
       
-      <xacro:inertial_box mass="1.012" x="${base_length + 0.04}" y="${base_width}" z="${base_height+0.165}">
+      <xacro:inertial_box mass="${base_mass}" x="${base_length + 0.04}" y="${base_width}" z="${base_height+0.165}">
          <origin xyz="${base_link_xoff + 0.037} 0.0 ${base_height/2}" rpy="0.0 0.0 0.0"/>
       </xacro:inertial_box>
    </link>

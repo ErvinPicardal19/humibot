@@ -21,7 +21,9 @@
          </geometry>
       </collision>
 
-
+      <xacro:inertial_cylinder mass="0.109" length="0.015" radius="0.0175">
+         <origin xyz="0 0 0" rpy="0 0 0"/>
+      </xacro:inertial_cylinder>
    </link>
 
    <gazebo reference="lidar_link">
