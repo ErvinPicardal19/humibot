@@ -30,7 +30,7 @@ def generate_launch_description():
       description="Use ros2_control if True"
    )
    
-   robot_description_raw = Command(["xacro ", urdf_path, " use_ros2_control:=", use_ros2_control])
+   robot_description_raw = Command(["xacro ", urdf_path, " use_ros2_control:=", use_ros2_control, " use_sim_mode:=", use_sim_time])
    
    robot_description = launch_ros.parameter_descriptions.ParameterValue(robot_description_raw, value_type=str)
    

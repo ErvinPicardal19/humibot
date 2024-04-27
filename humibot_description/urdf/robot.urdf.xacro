@@ -2,6 +2,7 @@
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="humibot">
    
    <xacro:arg name="use_ros2_control" default="True"/>
+   <xacro:arg name="use_sim_mode" default="False"/>
 
    <xacro:include filename="utils/colors.xacro"/>
    <xacro:include filename="utils/inertial_macros.xacro"/>
