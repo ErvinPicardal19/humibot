@@ -30,7 +30,7 @@ def generate_launch_description():
    start_twist_mux = Node(
       package="twist_mux",
       executable="twist_mux",
-      parameters=[twist_mux_params, {"use_sim_time": "False"}],
+      parameters=[twist_mux_params, {"use_sim_time": False}],
       remappings=[
          ("/cmd_vel_out", "/diff_controller/cmd_vel_unstamped")
       ]
