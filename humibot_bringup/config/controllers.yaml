@@ -1,7 +1,7 @@
 controller_manager:
   ros__parameters:
     update_rate: 30 # integer
-    use_sim_time: True
+    # use_sim_time: True
 
     joint_broadcaster:
       type: joint_state_broadcaster/JointStateBroadcaster
@@ -18,7 +18,7 @@ diff_controller:
 
     left_wheel_names: ['left_wheel_joint']
     right_wheel_names: ['right_wheel_joint']
-    wheel_separation: 0.332
+    wheel_separation: 0.32
     # 0.330
 
     wheel_radius: 0.0325
