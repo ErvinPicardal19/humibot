@@ -18,12 +18,14 @@ diff_controller:
 
     left_wheel_names: ['left_wheel_joint']
     right_wheel_names: ['right_wheel_joint']
-    wheel_separation: 0.330
+    wheel_separation: 0.332
+    # 0.330
 
-    wheel_radius: 0.0335
+    wheel_radius: 0.0325
+    # 0.0335
 
     pose_covariance_diagonal: [0.001, 0.001, 1000000.0, 1000000.0, 1000000.0, 1000.0]
     twist_covariance_diagonal: [0.001, 0.001, 1000000.0, 1000000.0, 1000000.0, 1000.0]
 
     use_stamped_vel: False
-    # enable_odom_tf: False
+    enable_odom_tf: True

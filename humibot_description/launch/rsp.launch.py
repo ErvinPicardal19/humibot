@@ -3,8 +3,9 @@ from launch.substitutions import LaunchConfiguration, Command
 from launch.actions import DeclareLaunchArgument
 from launch_ros.actions import Node
 from ament_index_python.packages import get_package_share_directory
+import launch_ros
 import os
-import xacro
+import launch_ros.parameter_descriptions
 
 def generate_launch_description():
    
@@ -22,8 +23,18 @@ def generate_launch_description():
       default_value=default_urdf_path,
       description="Full file path of the robot URDF description"
    )
-
-   robot_description = Command(["xacro ", urdf_path])
+   use_ros2_control = LaunchConfiguration("use_ros2_control")
+   declare_use_ros2_control = DeclareLaunchArgument(
+      name="use_ros2_control",
+      default_value="True",
+      description="Use ros2_control if True"
+   )
+   
+   robot_description_raw = Command(["xacro ", urdf_path, " use_ros2_control:=", use_ros2_control])
+   
+   robot_description = launch_ros.parameter_descriptions.ParameterValue(robot_description_raw, value_type=str)
+   
+   
    params={"robot_description": robot_description, "use_sim_time": use_sim_time}
    start_robot_state_publisher = Node(
       package="robot_state_publisher",
@@ -35,6 +46,7 @@ def generate_launch_description():
    return LaunchDescription([
       declare_use_sim_time,
       declare_urdf_path,
+      declare_use_ros2_control,
       
       start_robot_state_publisher
    ])
