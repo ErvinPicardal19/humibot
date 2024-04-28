@@ -13,6 +13,8 @@ def generate_launch_description():
    humibot_description_pkg = get_package_share_directory("humibot_description")
    humibot_teleop_pkg = get_package_share_directory("humibot_teleop")
    humibot_gazebo_pkg = get_package_share_directory("humibot_gazebo")
+   humibot_bringup_pkg = get_package_share_directory("humibot_bringup")
+   humibot_slam_pkg = get_package_share_directory("humibot_slam")
    gazebo_ros_pkg = get_package_share_directory("gazebo_ros")
    
    world_path = LaunchConfiguration("world")
@@ -41,6 +43,27 @@ def generate_launch_description():
       name="use_ros2_control",
       default_value="True",
       description="Use ros2_control if True"
+   )
+   
+   x_pose=LaunchConfiguration("x_pose")
+   declare_x_pose = DeclareLaunchArgument(
+      name="x_pose",
+      default_value="0.0",
+      description="Set spawn position in x meters"
+   )
+
+   y_pose=LaunchConfiguration("y_pose")
+   declare_y_pose = DeclareLaunchArgument(
+      name="y_pose",
+      default_value="0.0",
+      description="Set spawn position in y meters"
+   )
+
+   map_file = LaunchConfiguration("map")
+   declare_map_file = DeclareLaunchArgument(
+      name="map",
+      default_value=os.path.join(humibot_slam_pkg, "maps/simulation_map.yaml"),
+      description="Desired map file full path"
    )
 
    start_robot_state_publisher = IncludeLaunchDescription(
@@ -72,10 +95,13 @@ def generate_launch_description():
    spawn_robot = Node(
       package="gazebo_ros",
       executable="spawn_entity.py",
+      name="spawn_entity",
       output="screen",
       arguments=[
          "-topic", "robot_description",
-         "-entity", "humibot"
+         "-entity", "humibot",
+         "-x", x_pose,
+         "-y", y_pose
       ]
    )
    
@@ -110,6 +136,9 @@ def generate_launch_description():
       declare_rviz_config_file,
       declare_use_rviz,
       declare_ros2_control,
+      declare_x_pose,
+      declare_y_pose,
+      declare_map_file,
       
       RegisterEventHandler(
          event_handler=OnProcessExit(
