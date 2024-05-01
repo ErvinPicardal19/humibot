@@ -1,0 +1,4 @@
+string room # which room to read
+---
+bool success # if service is successfull
+uint8 humidity # humidity data from room

@@ -1,0 +1,38 @@
+<root BTCPP_format="4">
+   <BehaviorTree ID="MainTree">
+      <Fallback name="root_fallback">
+         <Sequence name="robot_function">
+            <Fallback name="check_loc_a_hum">
+               <IsRoomHumid name="Room A" room="Room_A_Humidity"/>
+               <Sequence name="dehumidify_loc_a">
+                  <GoToPose name="Goal A" loc="location1"/>
+                  <DehumidifyRoom name="Room A" room="Room_A_Humidity"/>
+               </Sequence>
+            </Fallback>
+
+            <Fallback name="check_loc_b_hum">
+               <IsRoomHumid name="Room B" room="Room_B_Humidity"/>
+               <Sequence name="dehumidify_loc_b">
+                  <GoToPose name="Goal B" loc="location2"/>
+                  <DehumidifyRoom name="Room B" room="Room_B_Humidity"/>
+               </Sequence>
+            </Fallback>            
+         </Sequence>
+         <AskForHelp name="ask_help"/>
+      </Fallback>
+   </BehaviorTree>
+
+   <!-- Description of Node Models (used by Groot2) -->
+   <TreeNodesModel>
+      <Action ID="AskForHelp"/>
+      <Action ID="DehumidifyRoom">
+          <input_port name="port" type="std::string"/>
+      </Action>
+      <Action ID="GoToPose">
+          <input_port name="loc" type="std::string"/>
+      </Action>
+      <Condition ID="IsRoomHumid">
+          <input_port name="port" type="std::string"/>
+      </Condition>
+  </TreeNodesModel>
+</root>

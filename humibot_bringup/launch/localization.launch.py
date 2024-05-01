@@ -48,7 +48,6 @@ def generate_launch_description():
       description="Set spawn position in y meters",
    )
    
-   
    start_amcl = IncludeLaunchDescription(
       PythonLaunchDescriptionSource([
          os.path.join(humibot_slam_pkg, "launch/localization_launch.py")
@@ -64,7 +63,7 @@ def generate_launch_description():
    )
    
    start_init_amcl_pose = Node(
-      package="humibot_behavior",
+      package="humibot_slam",
       executable="set_init_amcl_pose",
       name="amcl_init_pose_publisher",
       parameters=[

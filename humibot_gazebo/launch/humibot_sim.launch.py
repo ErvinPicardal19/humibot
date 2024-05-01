@@ -14,7 +14,6 @@ def generate_launch_description():
    humibot_teleop_pkg = get_package_share_directory("humibot_teleop")
    humibot_gazebo_pkg = get_package_share_directory("humibot_gazebo")
    humibot_bringup_pkg = get_package_share_directory("humibot_bringup")
-   humibot_slam_pkg = get_package_share_directory("humibot_slam")
    gazebo_ros_pkg = get_package_share_directory("gazebo_ros")
    
    world_path = LaunchConfiguration("world")
@@ -57,13 +56,6 @@ def generate_launch_description():
       name="y_pose",
       default_value="0.0",
       description="Set spawn position in y meters"
-   )
-
-   map_file = LaunchConfiguration("map")
-   declare_map_file = DeclareLaunchArgument(
-      name="map",
-      default_value=os.path.join(humibot_slam_pkg, "maps/simulation_map.yaml"),
-      description="Desired map file full path"
    )
 
    start_robot_state_publisher = IncludeLaunchDescription(
@@ -138,7 +130,6 @@ def generate_launch_description():
       declare_ros2_control,
       declare_x_pose,
       declare_y_pose,
-      declare_map_file,
       
       RegisterEventHandler(
          event_handler=OnProcessExit(

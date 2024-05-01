@@ -364,10 +364,10 @@
       <static>1</static>
     </model>
     <state world_name='default'>
-      <sim_time>117 424000000</sim_time>
-      <real_time>117 966871688</real_time>
-      <wall_time>1713892259 131219743</wall_time>
-      <iterations>117424</iterations>
+      <sim_time>153 767000000</sim_time>
+      <real_time>37 21684880</real_time>
+      <wall_time>1714413521 251003779</wall_time>
+      <iterations>36343</iterations>
       <model name='ground_plane'>
         <pose>0 0 0 0 -0 0</pose>
         <scale>1 1 1</scale>
@@ -379,7 +379,7 @@
         </link>
       </model>
       <model name='humibot_0'>
-        <pose>0.607686 1.25986 0 0 -0 0</pose>
+        <pose>0.60769 1.25986 0 0 -0 0</pose>
         <scale>1 1 1</scale>
         <link name='Wall_1'>
           <pose>1.60769 -1.18 0 0 -0 0</pose>
@@ -424,7 +424,7 @@
     </state>
     <gui fullscreen='0'>
       <camera name='user_camera'>
-        <pose>-2.36245 -0.095862 20.137 -4e-05 1.5698 1.68015</pose>
+        <pose>-2.36245 -0.095862 20.137 -2e-05 1.5698 1.68017</pose>
         <view_controller>orbit</view_controller>
         <projection_type>perspective</projection_type>
       </camera>
