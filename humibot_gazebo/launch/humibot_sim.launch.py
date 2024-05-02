@@ -57,6 +57,13 @@ def generate_launch_description():
       default_value="0.0",
       description="Set spawn position in y meters"
    )
+   
+   controller_type = LaunchConfiguration("controller_type")
+   declare_controller_type = DeclareLaunchArgument(
+      name="controller_type",
+      default_value="dobe",
+      description="Declare what type/brand is the controller"
+   )
 
    start_robot_state_publisher = IncludeLaunchDescription(
       PythonLaunchDescriptionSource([os.path.join(humibot_description_pkg, "launch/rsp.launch.py")]),
@@ -75,7 +82,7 @@ def generate_launch_description():
    
    start_joystick = IncludeLaunchDescription(
       PythonLaunchDescriptionSource([os.path.join(humibot_teleop_pkg, "launch/joystick.launch.py")]),
-      launch_arguments={"use_sim_time": "True"}.items()
+      launch_arguments={"use_sim_time": "True", "controller_type": controller_type}.items()
    )
    
    gazebo_params_file = os.path.join(humibot_gazebo_pkg, "config/gazebo_params.yaml")
@@ -130,6 +137,7 @@ def generate_launch_description():
       declare_ros2_control,
       declare_x_pose,
       declare_y_pose,
+      declare_controller_type,
       
       RegisterEventHandler(
          event_handler=OnProcessExit(

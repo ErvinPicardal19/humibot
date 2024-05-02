@@ -1,7 +1,8 @@
-from launch import LaunchDescription
+from launch import LaunchContext, LaunchDescription, condition
 from launch_ros.actions import Node
 from launch.actions import DeclareLaunchArgument
-from launch.substitutions import LaunchConfiguration
+from launch.substitutions import LaunchConfiguration, PythonExpression
+from launch.conditions import LaunchConfigurationEquals
 
 import os
 from ament_index_python.packages import get_package_share_directory
@@ -19,16 +20,37 @@ def generate_launch_description():
       description="Use Gazebo clock if True"
    )
    
+   
+   # controller_brand = LaunchConfiguration("controller_brand")
+   declare_controller_type = DeclareLaunchArgument(
+      name="controller_type",
+      default_value="dobe",
+      description="Declare what type/brand is the controller"
+   )
+
+   
    start_joy_node = Node(
       package="joy",
       executable="joy_node",
       parameters=[joy_params, {"use_sim_time": use_sim_time}]
    )
 
-   start_teleop_joy = Node(
+   start_teleop_joy_ps4_controller = Node(
+      condition=LaunchConfigurationEquals("controller_type", "ps4"),
       package="teleop_twist_joy",
       executable="teleop_node",
-      name="teleop_node",
+      name="ps4_teleop_node",
+      parameters=[joy_params, {"use_sim_time": use_sim_time}],
+      remappings=[
+         ("/cmd_vel", "/cmd_vel_joy")
+      ]
+   )
+   
+   start_teleop_joy_dobe_controller = Node(
+      condition=LaunchConfigurationEquals("controller_type", "dobe"),
+      package="teleop_twist_joy",
+      executable="teleop_node",
+      name="dobe_teleop_node",
       parameters=[joy_params, {"use_sim_time": use_sim_time}],
       remappings=[
          ("/cmd_vel", "/cmd_vel_joy")
@@ -47,8 +69,10 @@ def generate_launch_description():
    
    return LaunchDescription([
       declare_use_sim_time,
+      declare_controller_type,
       
       start_joy_node,
-      start_teleop_joy,
+      start_teleop_joy_ps4_controller,
+      start_teleop_joy_dobe_controller,
       # start_twist_stamper
    ])

@@ -15,6 +15,8 @@ setup(
             glob('config/*.yaml')),
         (f'share/{package_name}/launch/',
             glob('launch/*launch.[pxy][yma]')),
+        (f'share/{package_name}/maps/',
+            glob('maps/*')),
     ],
     install_requires=['setuptools'],
     zip_safe=True,

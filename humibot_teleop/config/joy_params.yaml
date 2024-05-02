@@ -4,7 +4,7 @@ joy_node:
     deadzone: 0.05
     autorepeat_rate: 20.0 #ms
 
-teleop_node:
+ps4_teleop_node:
   ros__parameters:
     axis_linear:
       x: 1
@@ -22,5 +22,26 @@ teleop_node:
 
     enable_button: 6
     enable_turbo_button: 7
+
+    require_enable_button: True
+
+dobe_teleop_node:
+  ros__parameters:
+    axis_linear:
+      x: 1
+    scale_linear:
+      x: 0.25
+    scale_linear_turbo:
+      x: 0.3
+
+    axis_angular:
+      yaw: 0
+    scale_angular:
+      yaw: 1.2
+    scale_angular_turbo:
+      yaw: 1.7
+
+    enable_button: 8
+    enable_turbo_button: 9
 
     require_enable_button: True
