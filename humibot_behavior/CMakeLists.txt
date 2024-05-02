@@ -17,7 +17,7 @@ find_package(nav2_msgs REQUIRED)
 find_package(yaml-cpp REQUIRED)
 find_package(tf2 REQUIRED)
 find_package(tf2_geometry_msgs REQUIRED)
-find_package(PkgConfig REQUIRED)
+# find_package(PkgConfig REQUIRED)
 find_package(std_srvs REQUIRED)
 find_package(humibot_interfaces REQUIRED)
 
@@ -44,13 +44,13 @@ set(TARGET_DEPENDS
   humibot_interfaces
 )
 
-pkg_check_modules(SERIAL libserial)
+# pkg_check_modules(SERIAL libserial)
 
 include_directories(include)
 add_executable(autonomy_node src/autonomy_node.cpp ${BEHAVIOR_SOURCES})
 ament_target_dependencies(autonomy_node ${TARGET_DEPENDS})
-target_link_libraries(autonomy_node ${YAML_CPP_LIBRARIES} ${SERIAL_LDFLAGS} ${CMAKE_THREAD_LIBS_INIT})
-target_include_directories(autonomy_node PRIVATE ${SERIAL_INCLUDE_DIRS})
+target_link_libraries(autonomy_node ${YAML_CPP_LIBRARIES})
+# target_include_directories(autonomy_node PRIVATE ${SERIAL_INCLUDE_DIRS})
 
 install(TARGETS
   autonomy_node

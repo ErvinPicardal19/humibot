@@ -7,7 +7,6 @@
 #include "nav2_msgs/action/navigate_to_pose.hpp"
 #include "std_srvs/srv/set_bool.hpp"
 #include "humibot_interfaces/srv/humidities.hpp"
-#include "dht_serial.hpp"
 
 #include <tf2/LinearMath/Quaternion.h>
 #include <tf2_geometry_msgs/tf2_geometry_msgs.hpp>
