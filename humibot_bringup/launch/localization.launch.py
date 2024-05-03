@@ -30,7 +30,7 @@ def generate_launch_description():
    map_file = LaunchConfiguration("map")
    declare_map_file = DeclareLaunchArgument(
       name="map",
-      default_value=os.path.join(humibot_slam_pkg, "maps/simulation_map.yaml"),
+      default_value=os.path.join(humibot_slam_pkg, "maps/real_map.yaml"),
       description="Desired map file full path"
    )
    

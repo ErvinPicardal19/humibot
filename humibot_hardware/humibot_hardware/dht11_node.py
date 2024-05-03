@@ -63,8 +63,8 @@ class Dht11_Node(Node):
       humidities = Humidities()
       
       # Open ports
-      self.serial_port1.port.port = "/dev/ttyUSB0"
-      self.serial_port2.port.port = "/dev/ttyUSB1"
+      self.serial_port1.port.port = "/dev/ttyACM0"
+      self.serial_port2.port.port = "/dev/ttyUSB0"
       if(not self.serial_port1.is_open or not self.serial_port2.is_open):
          try:
             self.serial_port1.port.open()
