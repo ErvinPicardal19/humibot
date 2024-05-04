@@ -13,7 +13,6 @@ def generate_launch_description():
    humibot_description_pkg = get_package_share_directory("humibot_description")
    humibot_teleop_pkg = get_package_share_directory("humibot_teleop")
    humibot_gazebo_pkg = get_package_share_directory("humibot_gazebo")
-   humibot_bringup_pkg = get_package_share_directory("humibot_bringup")
    gazebo_ros_pkg = get_package_share_directory("gazebo_ros")
    
    world_path = LaunchConfiguration("world")

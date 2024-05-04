@@ -1,6 +1,11 @@
 import rclpy
+import rclpy.logging
 from rclpy.node import Node
 from std_srvs.srv import SetBool
+
+import signal
+import sys
+import atexit
 
 import RPi.GPIO as GPIO
 
@@ -16,8 +21,14 @@ class DehumidifierServiceNode(Node):
       GPIO.setmode(GPIO.BCM)
       GPIO.setup(self.dehumidifier_pin, GPIO.OUT)
       
-   def switch(self, request: SetBool.Request, response: SetBool.Response):
+      atexit.register(self.__del__)
+   
+   def __del__(self):
+      self.get_logger().info("Cleaning up GPIO")
+      print("Cleaning up GPIO")
+      GPIO.cleanup()
       
+   def switch(self, request: SetBool.Request, response: SetBool.Response):
       self.get_logger().info(f"Received data {request.data}")
       
       try:
@@ -44,7 +55,7 @@ def main(args=None):
    rclpy.init(args=args)
    
    dehumidifier_service_node = DehumidifierServiceNode()
-   
+
    rclpy.spin(dehumidifier_service_node)
    
    dehumidifier_service_node.destroy_node()
