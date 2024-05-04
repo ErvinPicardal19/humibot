@@ -12,6 +12,8 @@ import RPi.GPIO as GPIO
 class DehumidifierServiceNode(Node):
    def __init__(self):
       super().__init__("dehumidifier_service_node")
+      
+      
       self.dehumidifier_pin = 17
       self.service_ = self.create_service(
          SetBool, 
@@ -20,14 +22,14 @@ class DehumidifierServiceNode(Node):
       )
       GPIO.setmode(GPIO.BCM)
       GPIO.setup(self.dehumidifier_pin, GPIO.OUT)
+
+      atexit.register(self.keyboard_interrupt_handler)
+      self.get_logger().info(f"{self.get_name()} started")
       
-      atexit.register(self.__del__)
-   
-   def __del__(self):
-      self.get_logger().info("Cleaning up GPIO")
-      print("Cleaning up GPIO")
+      
+   def keyboard_interrupt_handler(self):
       GPIO.cleanup()
-      
+   
    def switch(self, request: SetBool.Request, response: SetBool.Response):
       self.get_logger().info(f"Received data {request.data}")
       
@@ -60,8 +62,9 @@ def main(args=None):
    
    dehumidifier_service_node.destroy_node()
    
-   GPIO.cleanup()
    rclpy.shutdown()
 
 if __name__ == "__main__":
    main()
+
+      
