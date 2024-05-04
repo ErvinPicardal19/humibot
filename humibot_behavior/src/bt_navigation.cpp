@@ -352,7 +352,7 @@ void bt_navigation::DehumidifyRoom::send_dehumidifier_service_request(bool dehum
 
    dehumidifier_request->data = dehumidifier_switch;
 
-   RCLCPP_INFO(this->node_ptr_->get_logger(), "Sending request to dehumidifier service");
+   // RCLCPP_INFO(this->node_ptr_->get_logger(), "Sending request to dehumidifier service");
 
    this->dehumidifier_client_->async_send_request(
       dehumidifier_request,
@@ -377,7 +377,7 @@ void bt_navigation::DehumidifyRoom::send_dht11_service_request()
 
    humidity_request->room = room.value();
 
-   RCLCPP_INFO(this->node_ptr_->get_logger(), "Sending request to dht11 service");
+   // RCLCPP_INFO(this->node_ptr_->get_logger(), "Sending request to dht11 service");
 
    // Send service request
    this->dht11_client_->async_send_request(
