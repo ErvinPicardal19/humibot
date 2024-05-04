@@ -68,6 +68,12 @@ def generate_launch_description():
       )
    )
    
+   # dehumidifier_node
+   start_dehumidifier_service_node = Node(
+      package="humibot_hardware",
+      executable="dehumidifier_service_node",
+   )
+   
    return LaunchDescription([
       declare_ros2_control,
       
@@ -82,5 +88,6 @@ def generate_launch_description():
       start_robot_state_publisher,
       start_twist_mux,
       start_lidar,
-      start_joint_broadcaster
+      start_joint_broadcaster,
+      start_dehumidifier_service_node
    ])

@@ -56,12 +56,6 @@ def generate_launch_description():
       description="Set spawn position in y meters",
    )
    
-   # dht11_node
-   start_dht11_node = Node(
-      package="humibot_hardware",
-      executable="dht11_node",
-   )
-   
    start_amcl = IncludeLaunchDescription(
       PythonLaunchDescriptionSource([
          os.path.join(humibot_slam_pkg, "launch/localization_launch.py")
@@ -108,6 +102,18 @@ def generate_launch_description():
       parameters=[{"use_sim_time": use_sim_time}]
    )
    
+   # dht11_node
+   start_dht11_node = Node(
+      package="humibot_hardware",
+      executable="dht11_node",
+   )
+   
+   # dht11_service
+   start_dht11_service = Node(
+      package="humibot_hardware",
+      executable="dht11_service",
+   )
+   
    return LaunchDescription([
       declare_use_sim_time,
       declare_rviz_config_file,
@@ -121,5 +127,6 @@ def generate_launch_description():
       start_navigation,
       start_mapping,
       start_rviz,
-      start_dht11_node
+      start_dht11_node,
+      start_dht11_service
    ])

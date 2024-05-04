@@ -21,7 +21,7 @@ class Dht11_Service(Node):
       )
       
       self.sub_ = self.create_subscription(Humidities_MSG, "DHT11_node/update_humidities", self.update_humidities, 10)
-
+   
    
    def update_humidities(self, msg: Humidities_MSG):
       self.get_logger().info(f"Updating humidities: Room A[{msg.room_a_humidity}], RoomB[{msg.room_b_humidity}]")
