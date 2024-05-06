@@ -41,7 +41,7 @@ dobe_teleop_node:
     scale_angular_turbo:
       yaw: 1.7
 
-    enable_button: 8
-    enable_turbo_button: 9
+    enable_button: 7
+    enable_turbo_button: 8
 
     require_enable_button: True

@@ -1,14 +1,17 @@
+import socket
 import rclpy
 from rclpy.node import Node
 from ament_index_python import get_package_share_directory
 import serial
 import yaml
 import os
+import socketio
 
 from humibot_interfaces.srv import Humidities as Humidities_SRV
 from humibot_interfaces.msg import Humidities as Humidities_MSG
 
 class Dht11_Service(Node):
+   
    def __init__(self):
       super().__init__("Dht11_Service")
       
@@ -19,10 +22,9 @@ class Dht11_Service(Node):
          f"/{self.get_name()}/get_humidities",
          self.service_callback
       )
-      
+
       self.sub_ = self.create_subscription(Humidities_MSG, "DHT11_node/update_humidities", self.update_humidities, 10)
-   
-   
+
    def update_humidities(self, msg: Humidities_MSG):
       self.get_logger().info(f"Updating humidities: Room A[{msg.room_a_humidity}], RoomB[{msg.room_b_humidity}]")
       self.humidities["Room_A_Humidity"] = msg.room_a_humidity
@@ -41,8 +43,8 @@ class Dht11_Service(Node):
 
 def main(args=None):
    rclpy.init(args=args)
-   
-   dht11_service = Dht11_Service()
+
+   dht11_service = Dht11_Service() 
    
    rclpy.spin(dht11_service)
    
