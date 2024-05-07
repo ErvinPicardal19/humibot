@@ -27,6 +27,13 @@ def generate_launch_description():
       default_value="/dev/ttyUSB1",
       description="Port for the water lvl sensor"
    )
+   
+   lidar_port=LaunchConfiguration("lidar_port")
+   declare_lidar_port = DeclareLaunchArgument(
+      name="lidar_port",
+      default_value="/dev/ttyUSB0",
+      description="Port for the lidar"
+   )
 
    start_robot_state_publisher = IncludeLaunchDescription(
       PythonLaunchDescriptionSource([os.path.join(humibot_description_pkg, "launch/rsp.launch.py")]),
@@ -72,7 +79,8 @@ def generate_launch_description():
    start_lidar = IncludeLaunchDescription(
       PythonLaunchDescriptionSource(
          [os.path.join(humibot_bringup_pkg, "launch/lidar.launch.py")]
-      )
+      ),
+      launch_arguments={"serial_port": lidar_port}.items()
    )
    
    # dehumidifier_node
@@ -93,6 +101,7 @@ def generate_launch_description():
    return LaunchDescription([
       declare_ros2_control,
       declare_port,
+      declare_lidar_port,
       
       RegisterEventHandler(
          event_handler=OnProcessExit(
