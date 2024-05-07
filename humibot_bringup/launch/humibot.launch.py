@@ -21,6 +21,13 @@ def generate_launch_description():
       description="Use ros2_control if True"
    )
 
+   port=LaunchConfiguration("port")
+   declare_port = DeclareLaunchArgument(
+      name="port",
+      default_value="/dev/ttyUSB1",
+      description="Port for the water lvl sensor"
+   )
+
    start_robot_state_publisher = IncludeLaunchDescription(
       PythonLaunchDescriptionSource([os.path.join(humibot_description_pkg, "launch/rsp.launch.py")]),
       launch_arguments={"use_sim_time": "False", "use_ros2_control": use_ros2_control}.items()
@@ -73,9 +80,19 @@ def generate_launch_description():
       package="humibot_hardware",
       executable="dehumidifier_service_node",
    )
+
+   # dehumidifier_node
+   start_dehumidifier_service_node = Node(
+      package="humibot_hardware",
+      executable="water_lvl_sensor_node",
+      parameters=[
+         {"port": port}
+      ]
+   )
    
    return LaunchDescription([
       declare_ros2_control,
+      declare_port,
       
       RegisterEventHandler(
          event_handler=OnProcessExit(

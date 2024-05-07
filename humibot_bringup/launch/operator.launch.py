@@ -103,6 +103,12 @@ def generate_launch_description():
    )
    
    # dht11_node
+   start_websocket_service = Node(
+      package="humibot_hardware",
+      executable="WSService",
+   )
+
+   # dht11_node
    start_dht11_node = Node(
       package="humibot_hardware",
       executable="dht11_node",
@@ -127,6 +133,7 @@ def generate_launch_description():
       start_navigation,
       start_mapping,
       start_rviz,
+      start_websocket_service,
       start_dht11_node,
       start_dht11_service
    ])

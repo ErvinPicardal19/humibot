@@ -5,8 +5,6 @@ from rclpy.node import Node
 from std_srvs.srv import SetBool
 from std_msgs.msg import Bool
 
-import signal
-import sys
 import atexit
 
 import RPi.GPIO as GPIO

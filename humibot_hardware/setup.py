@@ -26,7 +26,8 @@ setup(
             "dehumidifier_service_node=humibot_hardware.dehumidifier_service_node:main",
             "dht11_node=humibot_hardware.dht11_node:main",
             "dht11_service=humibot_hardware.dht11_service:main",
-            "WSService=humibot_hardware.WSService:main"
+            "WSService=humibot_hardware.WSService:main",
+            "water_lvl_sensor_node=humibot_hardware.water_lvl_sensor_node:main"
         ],
     },
 )
