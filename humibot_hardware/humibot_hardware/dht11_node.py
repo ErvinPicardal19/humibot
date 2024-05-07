@@ -29,8 +29,10 @@ class SerialPort:
    def read(self):
       dt_ms = time.time() * 1000.0
       while(1):
-         if (self.port.in_waiting > 0):   
-            return self.port.readline().decode('Ascii')
+         data = self.port.readline().decode().strip()
+         if (data):   
+            
+            return data
          
          # timeout if 2s passed and return 0
          if (dt_ms - (time.time()*1000) > 2000):

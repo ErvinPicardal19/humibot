@@ -82,13 +82,13 @@ def generate_launch_description():
    )
 
    # water_lvl_node
-   # start_water_lvl_sensor_node = Node(
-   #    package="humibot_hardware",
-   #    executable="water_lvl_sensor_node",
-   #    parameters=[
-   #       {"port": port}
-   #    ]
-   # )
+   start_water_lvl_sensor_node = Node(
+      package="humibot_hardware",
+      executable="water_lvl_sensor_node",
+      parameters=[
+         {"port": port}
+      ]
+   )
    
    return LaunchDescription([
       declare_ros2_control,
@@ -107,5 +107,5 @@ def generate_launch_description():
       start_lidar,
       start_joint_broadcaster,
       start_dehumidifier_service_node,
-      # start_water_lvl_sensor_node
+      start_water_lvl_sensor_node
    ])
