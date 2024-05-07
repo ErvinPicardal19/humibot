@@ -21,6 +21,13 @@ def generate_launch_description():
       description="Use Gazebo clock if True"
    )
    
+   server_url = LaunchConfiguration("server_url")
+   declare_server_url = DeclareLaunchArgument(
+      name="server_url",
+      default_value="http://192.168.1.10:5000",
+      description="Declare the websocket server URL address"
+   )
+   
    # mode = LaunchConfiguration("mode")
    declare_mode = DeclareLaunchArgument(
       name="mode",
@@ -106,6 +113,11 @@ def generate_launch_description():
    start_websocket_service = Node(
       package="humibot_hardware",
       executable="WSService",
+      parameters=[
+         {
+            "url": server_url
+         }
+      ]
    )
 
    # dht11_node
@@ -127,6 +139,7 @@ def generate_launch_description():
       declare_x_pose,
       declare_y_pose,
       declare_mode,
+      declare_server_url,
 
       start_init_amcl_pose,
       start_amcl,

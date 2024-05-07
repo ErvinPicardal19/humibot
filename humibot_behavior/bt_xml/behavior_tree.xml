@@ -7,6 +7,7 @@
                <Sequence name="dehumidify_loc_a">
                   <GoToPose name="Goal A" loc="location1"/>
                   <DehumidifyRoom name="Room A" room="Room_A_Humidity"/>
+                  <GoToPose name="Goal C" loc="location3"/>
                </Sequence>
             </Fallback>
 
@@ -15,6 +16,7 @@
                <Sequence name="dehumidify_loc_b">
                   <GoToPose name="Goal B" loc="location2"/>
                   <DehumidifyRoom name="Room B" room="Room_B_Humidity"/>
+                  <GoToPose name="Goal C" loc="location3"/>
                </Sequence>
             </Fallback>            
          </Sequence>
