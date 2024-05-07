@@ -101,11 +101,18 @@ def generate_launch_description():
          )
       ),
       
+      RegisterEventHandler(
+         event_handler=OnProcessExit(
+            target_action=start_diff_controller,
+            on_exit=[start_water_lvl_sensor_node]
+         )
+      ),
+      
       start_controller_manager,
       start_robot_state_publisher,
       start_twist_mux,
       start_lidar,
       start_joint_broadcaster,
       start_dehumidifier_service_node,
-      start_water_lvl_sensor_node
+      # start_water_lvl_sensor_node
    ])
