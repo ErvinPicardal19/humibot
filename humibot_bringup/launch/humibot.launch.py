@@ -82,7 +82,7 @@ def generate_launch_description():
    )
 
    # dehumidifier_node
-   start_dehumidifier_service_node = Node(
+   start_water_lvl_sensor_node = Node(
       package="humibot_hardware",
       executable="water_lvl_sensor_node",
       parameters=[
@@ -106,5 +106,6 @@ def generate_launch_description():
       start_twist_mux,
       start_lidar,
       start_joint_broadcaster,
-      start_dehumidifier_service_node
+      start_dehumidifier_service_node,
+      start_water_lvl_sensor_node
    ])
