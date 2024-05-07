@@ -81,14 +81,14 @@ def generate_launch_description():
       executable="dehumidifier_service_node",
    )
 
-   # dehumidifier_node
-   start_water_lvl_sensor_node = Node(
-      package="humibot_hardware",
-      executable="water_lvl_sensor_node",
-      parameters=[
-         {"port": port}
-      ]
-   )
+   # water_lvl_node
+   # start_water_lvl_sensor_node = Node(
+   #    package="humibot_hardware",
+   #    executable="water_lvl_sensor_node",
+   #    parameters=[
+   #       {"port": port}
+   #    ]
+   # )
    
    return LaunchDescription([
       declare_ros2_control,
@@ -98,13 +98,6 @@ def generate_launch_description():
          event_handler=OnProcessExit(
             target_action=start_joint_broadcaster,
             on_exit=[start_diff_controller]
-         )
-      ),
-      
-      RegisterEventHandler(
-         event_handler=OnProcessExit(
-            target_action=start_diff_controller,
-            on_exit=[start_water_lvl_sensor_node]
          )
       ),
       
