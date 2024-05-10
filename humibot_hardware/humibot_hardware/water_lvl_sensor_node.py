@@ -38,7 +38,7 @@ class WaterLvlNode(Node):
    def __init__(self):
       super().__init__("water_lvl_node") # type: ignore
       
-      self.declare_parameter('port', value='/dev/ttyUSB1')
+      self.declare_parameter('port', value='/dev/WaterSensor')
 
       self.serial_port = SerialPort()
       

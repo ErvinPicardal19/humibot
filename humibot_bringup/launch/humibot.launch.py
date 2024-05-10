@@ -20,18 +20,11 @@ def generate_launch_description():
       default_value="True",
       description="Use ros2_control if True"
    )
-
-   port=LaunchConfiguration("port")
-   declare_port = DeclareLaunchArgument(
-      name="port",
-      default_value="/dev/ttyUSB1",
-      description="Port for the water lvl sensor"
-   )
    
    lidar_port=LaunchConfiguration("lidar_port")
    declare_lidar_port = DeclareLaunchArgument(
       name="lidar_port",
-      default_value="/dev/ttyUSB0",
+      default_value="/dev/LD06",
       description="Port for the lidar"
    )
 
@@ -93,14 +86,10 @@ def generate_launch_description():
    start_water_lvl_sensor_node = Node(
       package="humibot_hardware",
       executable="water_lvl_sensor_node",
-      parameters=[
-         {"port": port}
-      ]
    )
    
    return LaunchDescription([
       declare_ros2_control,
-      declare_port,
       declare_lidar_port,
       
       RegisterEventHandler(
