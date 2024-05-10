@@ -146,7 +146,7 @@ def generate_launch_description():
       start_navigation,
       start_mapping,
       start_rviz,
-      start_websocket_service,
-      start_dht11_node,
-      start_dht11_service
+      # start_websocket_service,
+      # start_dht11_node,
+      # start_dht11_service
    ])
