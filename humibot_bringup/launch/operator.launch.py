@@ -108,26 +108,17 @@ def generate_launch_description():
       ],
       parameters=[{"use_sim_time": use_sim_time}]
    )
-   
-   # dht11_node
-   start_websocket_service = Node(
-      package="humibot_hardware",
-      executable="WSService",
-      parameters=[
-         {
-            "url": server_url
-         }
-      ]
-   )
 
    # dht11_node
    start_dht11_node = Node(
+      condition=LaunchConfigurationEquals("mode", "localization"),
       package="humibot_hardware",
       executable="dht11_node",
    )
    
    # dht11_service
    start_dht11_service = Node(
+      condition=LaunchConfigurationEquals("mode", "localization"),
       package="humibot_hardware",
       executable="dht11_service",
    )
@@ -147,6 +138,6 @@ def generate_launch_description():
       start_mapping,
       start_rviz,
       # start_websocket_service,
-      # start_dht11_node,
-      # start_dht11_service
+      start_dht11_node,
+      start_dht11_service
    ])

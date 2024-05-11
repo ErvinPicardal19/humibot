@@ -54,56 +54,54 @@ class Dht11_Node(Node):
       
       self.serial_port1.port.port = "/dev/ttyACM0"
       self.serial_port2.port.port = "/dev/ttyUSB0"
-      
-      try:
-         self.serial_port1.port.open()
-         self.serial_port1.is_open = True
-      except:
-         self.get_logger().warn(f"Cannot access port [{self.serial_port1.port.port}]")
-      try:
-         self.serial_port2.port.open()
-         self.serial_port2.is_open = True
-      except:
-         self.get_logger().warn(f"Cannot access port [{self.serial_port2.port.port}]")
-         
+
       atexit.register(self.cleanup)
       self.get_logger().info(f"{self.get_name()} started")
-      
+
    def cleanup(self):
       self.serial_port1.port.close()
-      self.serial_port1.is_open = False
       self.serial_port2.port.close()
-      self.serial_port1.is_open = False
-   
+
    def update_humidities(self):
-      
+
       humidities = Humidities()
       
-      # Open ports
-      if(self.serial_port1.is_open and self.serial_port2.is_open):
+      try:
+         if not self.serial_port1.port.is_open:
+            self.serial_port1.port.open()
+      except:
+         self.get_logger().warn(f"Cannot access port [{self.serial_port1.port.port}]")
+         
+      try:
+         if not self.serial_port2.port.is_open:
+            self.serial_port2.port.open()
+      except:
+         self.get_logger().warn(f"Cannot access port [{self.serial_port2.port.port}]")
+
+
+      if(self.serial_port1.port.is_open):
 
          port1_output = self.serial_port1.read()
-         port2_output = self.serial_port2.read()
    
          if(port1_output):
             # self.humidities["humidity1"] = int(float(port1_output))
             humidities.room_a_humidity = int(float(port1_output))
+         
+         self.get_logger().info(f"Room A Humidity: {humidities.room_a_humidity}")
+
+
+      if(self.serial_port2.port.is_open):
+
+         port2_output = self.serial_port2.read()
 
          if(port2_output):
             # self.humidities["humidity2"] = int(float(port2_output))
             humidities.room_b_humidity = int(float(port2_output))
-       
-         
-      self.get_logger().info(f"Room A Humidity: {humidities.room_a_humidity}")
-      self.get_logger().info(f"Room B Humidity: {humidities.room_b_humidity}")
+            
+         self.get_logger().info(f"Room B Humidity: {humidities.room_b_humidity}")
 
 
       self.pub_.publish(humidities)
-
-      # self.serial_port1.port.close()
-      # self.serial_port1.is_open = False
-      # self.serial_port2.port.close()
-      # self.serial_port1.is_open = False
       
       return
 

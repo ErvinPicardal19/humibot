@@ -21,9 +21,9 @@ class WSServiceNode(Node):
       self.sub_1 = self.create_subscription(Humidities_MSG, "DHT11_node/update_humidities", self.get_humidity_callback, 10)
       self.sub_2 = self.create_subscription(Int16, "water_lvl_node/update_water_lvl", self.get_water_lvl_callback, 10)
 
-      # while(self.count_publishers('DHT11_node/update_humidities') <= 0 and self.count_publishers('water_lvl_node/update_water_lvl') <= 0):
-      #    self.get_logger().info("Waiting for DHT11_node and water_lvl_node...")
-      #    time.sleep(1)
+      while(self.count_publishers('DHT11_node/update_humidities') <= 0 and self.count_publishers('water_lvl_node/update_water_lvl') <= 0):
+         self.get_logger().info("Waiting for DHT11_node and water_lvl_node...")
+         time.sleep(1)
 
       self.timer_ = self.create_timer(1, self.check_interrupt)
       try:

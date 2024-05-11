@@ -1,7 +1,6 @@
 import time
 import rclpy
 from rclpy.node import Node
-from ament_index_python import get_package_share_directory
 import serial
 import time
 import atexit
@@ -48,12 +47,6 @@ class WaterLvlNode(Node):
       self.timer_ = self.create_timer(period_sec, self.update_humidities)
    
       self.serial_port.port.port = self.get_parameter('port').get_parameter_value().string_value
-   
-      try:
-         self.serial_port.port.open()
-         self.serial_port.is_open = True
-      except:
-         self.get_logger().warn(f"Cannot access port [{self.serial_port.port.port}]")
          
       atexit.register(self.cleanup)
       self.get_logger().info(f"{self.get_name()} started")
@@ -65,13 +58,20 @@ class WaterLvlNode(Node):
    def update_humidities(self):
       
       water_lvl = Int16()
+      water_lvl.data = 0
+      
+      try:
+         if not self.serial_port.port.is_open:
+            self.serial_port.port.open()
+      except:
+         self.get_logger().warn(f"Cannot access port [{self.serial_port.port.port}]")
       
       # Open ports
       # self.serial_port.port.port = "/dev/ttyUSB1"
-      if(self.serial_port.is_open):
-         
+      if(self.serial_port.port.is_open):
+
          port_output = self.serial_port.read()
-         
+
          if(port_output):
             # self.humidities["humidity1"] = int(float(port_output))
             water_lvl.data = int(float(port_output))
