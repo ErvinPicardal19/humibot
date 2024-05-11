@@ -31,7 +31,7 @@ def generate_launch_description():
    server_url = LaunchConfiguration("server_url")
    declare_server_url = DeclareLaunchArgument(
       name="server_url",
-      default_value="http://192.168.1.10:5000",
+      default_value="http://192.168.43.95:5000",
       description="Declare the websocket server URL address"
    )
 
