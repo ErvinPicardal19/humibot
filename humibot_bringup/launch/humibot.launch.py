@@ -27,6 +27,13 @@ def generate_launch_description():
       default_value="/dev/LD06",
       description="Port for the lidar"
    )
+   
+   server_url = LaunchConfiguration("server_url")
+   declare_server_url = DeclareLaunchArgument(
+      name="server_url",
+      default_value="http://192.168.1.10:5000",
+      description="Declare the websocket server URL address"
+   )
 
    start_robot_state_publisher = IncludeLaunchDescription(
       PythonLaunchDescriptionSource([os.path.join(humibot_description_pkg, "launch/rsp.launch.py")]),
@@ -88,14 +95,33 @@ def generate_launch_description():
       executable="water_lvl_sensor_node",
    )
    
+   # WWService Node
+   start_websocket_service = Node(
+      package="humibot_hardware",
+      executable="WSService",
+      parameters=[
+         {
+            "url": server_url
+         }
+      ]
+   )
+   
    return LaunchDescription([
       declare_ros2_control,
       declare_lidar_port,
+      declare_server_url,
       
       RegisterEventHandler(
          event_handler=OnProcessExit(
             target_action=start_joint_broadcaster,
             on_exit=[start_diff_controller]
+         )
+      ),
+      
+      RegisterEventHandler(
+         event_handler=OnProcessExit(
+            target_action=start_diff_controller,
+            on_exit=[start_websocket_service]
          )
       ),
       

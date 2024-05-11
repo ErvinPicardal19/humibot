@@ -28,8 +28,8 @@ install(
 
 set(BEHAVIOR_SOURCES
   src/bt_navigation.cpp
-  src/dht_serial.cpp
-  src/Timer.cpp
+  # src/dht_serial.cpp
+  # src/Timer.cpp
 )
 
 set(TARGET_DEPENDS

@@ -1,11 +1,6 @@
-import socket
 import rclpy
 from rclpy.node import Node
 from ament_index_python import get_package_share_directory
-import serial
-import yaml
-import os
-import socketio
 
 from humibot_interfaces.srv import Humidities as Humidities_SRV
 from humibot_interfaces.msg import Humidities as Humidities_MSG

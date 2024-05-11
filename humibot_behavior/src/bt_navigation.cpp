@@ -1,5 +1,4 @@
 #include "bt_navigation.hpp"
-#include <libserial/SerialPortConstants.h>
 #include <string>
 #include "yaml-cpp/yaml.h"
 #include <vector>

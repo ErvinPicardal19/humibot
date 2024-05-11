@@ -76,7 +76,7 @@ class WaterLvlNode(Node):
             # self.humidities["humidity1"] = int(float(port_output))
             water_lvl.data = int(float(port_output))
          
-      self.get_logger().info(f"Water Level: {water_lvl.data} mL")
+      # self.get_logger().info(f"Water Level: {water_lvl.data} mL")
 
       self.pub_.publish(water_lvl)
 
