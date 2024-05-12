@@ -93,15 +93,15 @@ def generate_launch_description():
       launch_arguments={"use_sim_time": use_sim_time}.items()
    )
    
-   start_rviz_amcl = Node(
-      condition=LaunchConfigurationEquals("mode", "localization"),
-      package="rviz2",
-      executable="rviz2",
-      arguments=[
-         "-d", os.path.join(humibot_description_pkg, "rviz/real.rviz")
-      ],
-      parameters=[{"use_sim_time": use_sim_time}]
-   )
+   # start_rviz_amcl = Node(
+   #    condition=LaunchConfigurationEquals("mode", "localization"),
+   #    package="rviz2",
+   #    executable="rviz2",
+   #    arguments=[
+   #       "-d", os.path.join(humibot_description_pkg, "rviz/real.rviz")
+   #    ],
+   #    parameters=[{"use_sim_time": use_sim_time}]
+   # )
 
    start_rviz_mapping = Node(
       condition=LaunchConfigurationEquals("mode", "mapping"),
@@ -136,13 +136,13 @@ def generate_launch_description():
       declare_mode,
       # declare_server_url,
 
-      start_init_amcl_pose,
       start_amcl,
       start_navigation,
       start_mapping,
       start_rviz_mapping,
-      start_rviz_amcl,
+      # start_rviz_amcl,
       # start_websocket_service,
+      start_init_amcl_pose,
       start_dht11_node,
       start_dht11_service
    ])
