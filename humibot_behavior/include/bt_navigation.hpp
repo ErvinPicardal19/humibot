@@ -19,7 +19,7 @@ namespace bt_navigation
       private:
          rclcpp::Node::SharedPtr node_ptr_;
          bool service_done_;
-         double humidity_thresh = 65.0;
+         double humidity_thresh = 90.0;
          std::string humidity_port_;
          uint8_t humidity_;
 
@@ -78,7 +78,7 @@ namespace bt_navigation
          // bool is_dehumidifier_request_done;
          bool is_humidity_request_sent;
          bool is_humidity_request_done;
-         double humidity_thresh = 65.0;
+         double humidity_thresh = 90.0;
          uint8_t humidity_;
 
          rclcpp::Client<humibot_interfaces::srv::Humidities>::SharedPtr dht11_client_;

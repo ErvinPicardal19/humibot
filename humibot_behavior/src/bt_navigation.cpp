@@ -150,6 +150,18 @@ BT::NodeStatus bt_navigation::GoToPose::onStart()
    // send_goal_options.feedback_callback = std::bind(&GoToPose::nav_to_pose_feedback, this, _1, _2);
    send_goal_options.result_callback = std::bind(&GoToPose::nav_to_pose_callback, this, std::placeholders::_1);
    action_client_ptr_ = rclcpp_action::create_client<NavigateToPose>(node_ptr_, "/navigate_to_pose");
+
+   while (!this->action_client_ptr_->wait_for_action_server(std::chrono::milliseconds(1000)))
+   {
+      if(!rclcpp::ok())
+      {
+         RCLCPP_ERROR(
+            this->node_ptr_->get_logger(),
+            "Client interrupted while waiting for service. Terminating...");
+         return BT::NodeStatus::SUCCESS;
+      }
+      RCLCPP_INFO(this->node_ptr_->get_logger(), "Service Unavailable. Waiting for Service...");
+   }
    
    auto goal_msg = NavigateToPose::Goal();
    goal_msg.pose.header.frame_id = "map";
